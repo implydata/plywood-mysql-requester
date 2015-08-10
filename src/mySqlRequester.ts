@@ -8,14 +8,14 @@ import mysql = require("mysql");
 import Q = require('q');
 
 export interface MySqlRequesterParameters {
-  locator?: Locator.FacetLocator;
+  locator?: Locator.PlywoodLocator;
   host?: string;
   user: string;
   password: string;
   database: string;
 }
 
-function basicLocator(host: string): Locator.FacetLocator {
+function basicLocator(host: string): Locator.PlywoodLocator {
   var hostnamePort = host.split(':');
   var hostname: string;
   var port: number;
@@ -34,7 +34,7 @@ function basicLocator(host: string): Locator.FacetLocator {
   };
 }
 
-export function mySqlRequesterFactory(parameters: MySqlRequesterParameters): Requester.FacetRequester<string> {
+export function mySqlRequesterFactory(parameters: MySqlRequesterParameters): Requester.PlywoodRequester<string> {
   var locator = parameters.locator;
   if (!locator) {
     var host = parameters.host;
