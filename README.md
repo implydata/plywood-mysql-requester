@@ -1,6 +1,6 @@
 # plywood-mysql-requester
 
-This is the [MySQL](https://www.mysql.com/) requester making abstraction layer for [plywood](https://github.com/implyio/plywood).
+This is the [MySQL](https://www.mysql.com/) requester making abstraction layer for [plywood](https://github.com/implydata/plywood).
 
 Given a MySQL query and an optional context it return a Q promise that resolves to the data table.
 
