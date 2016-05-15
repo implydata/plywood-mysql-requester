@@ -43,7 +43,7 @@ describe("MySQL requester", function() {
         query: "DESCRIBE wikipedia;"
       })
         .then((res) => {
-          expect(res.length).to.equal(23);
+          expect(res.length).to.equal(26);
           testComplete();
         })
         .done();

@@ -2,7 +2,6 @@
 /// <reference path="../typings/q/Q.d.ts" />
 /// <reference path="../definitions/locator.d.ts" />
 /// <reference path="../definitions/requester.d.ts" />
-"use strict";
 
 import mysql = require("mysql");
 import Q = require('q');
