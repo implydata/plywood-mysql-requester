@@ -43,7 +43,37 @@ describe("MySQL requester", function() {
         query: "DESCRIBE wikipedia;"
       })
         .then((res) => {
-          expect(res.length).to.equal(26);
+          expect(res.map(r => {
+            return r.Field + ' ~ ' + r.Type;
+          })).to.deep.equal([
+            "time ~ datetime",
+            "sometimeLater ~ timestamp",
+            "channel ~ varchar(255)",
+            "cityName ~ varchar(255)",
+            "comment ~ varchar(300)",
+            "commentLength ~ int(11)",
+            "countryIsoCode ~ varchar(255)",
+            "countryName ~ varchar(255)",
+            "deltaBucket100 ~ int(11)",
+            "isAnonymous ~ tinyint(1)",
+            "isMinor ~ tinyint(1)",
+            "isNew ~ tinyint(1)",
+            "isRobot ~ tinyint(1)",
+            "isUnpatrolled ~ tinyint(1)",
+            "metroCode ~ int(11)",
+            "namespace ~ varchar(255)",
+            "page ~ varchar(255)",
+            "regionIsoCode ~ varchar(255)",
+            "regionName ~ varchar(255)",
+            "user ~ varchar(255)",
+            "count ~ bigint(21)",
+            "added ~ decimal(32,0)",
+            "deleted ~ decimal(32,0)",
+            "delta ~ decimal(32,0)",
+            "min_delta ~ int(11)",
+            "max_delta ~ int(11)",
+            "deltaByTen ~ double"
+          ]);
           testComplete();
         })
         .done();
