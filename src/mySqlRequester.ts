@@ -55,7 +55,7 @@ export function mySqlRequesterFactory(parameters: MySqlRequesterParameters): Req
           password: password,
           database: database,
           charset: 'UTF8_BIN',
-          timezone: '+00:00',
+          timezone: '+00:00'
         });
 
         connection.connect();
