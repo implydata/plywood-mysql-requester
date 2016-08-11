@@ -15,13 +15,11 @@
  * limitations under the License.
  */
 
-/// <reference path="../typings/mysql/mysql.d.ts" />
-/// <reference path="../typings/q/Q.d.ts" />
-/// <reference path="../definitions/locator.d.ts" />
-/// <reference path="../definitions/requester.d.ts" />
+/// <reference path="../typings/locator.d.ts" />
+/// <reference path="../typings/requester.d.ts" />
 
-import mysql = require("mysql");
-import Q = require('q');
+import * as mysql from "mysql";
+import * as Q from 'q';
 
 export interface MySqlRequesterParameters {
   locator?: Locator.PlywoodLocator;
