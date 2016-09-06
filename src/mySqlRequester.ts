@@ -19,7 +19,7 @@
 /// <reference path="../typings/requester.d.ts" />
 
 import * as mysql from "mysql";
-import * as Q from 'q';
+import * as Q from 'q-tsc';
 
 export interface MySqlRequesterParameters {
   locator?: Locator.PlywoodLocator;

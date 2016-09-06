@@ -18,15 +18,14 @@
   "main": "build/mySqlRequester.js",
   "typings": "build/mySqlRequester.d.ts",
   "scripts": {
-    "prepublish": "./prepublish"
+    "compile": "./compile"
   },
   "dependencies": {
-    "q": "1.4.1",
+    "q-tsc": "1.4.1-rev1",
     "mysql": "2.11.1"
   },
   "devDependencies": {
     "@types/mysql": "0.0.28",
-    "@types/q": "0.0.28",
     "chai": "3.5.0",
     "mocha": "2.5.3",
     "tslint": "3.12.1",
