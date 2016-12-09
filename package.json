@@ -18,8 +18,7 @@
   "main": "build/mySqlRequester.js",
   "typings": "build/mySqlRequester.d.ts",
   "files": [
-    "build/",
-    "typings/"
+    "build/"
   ],
   "scripts": {
     "prepublish": "node_modules/.bin/tdi",
