@@ -15,13 +15,15 @@
  * limitations under the License.
  */
 
-var { expect } = require("chai");
+const { expect } = require("chai");
+const toArray = require("stream-to-array");
 
-var { mySqlRequesterFactory } = require('../build/mySqlRequester');
+const { mySqlRequesterFactory } = require('../build/mySqlRequester');
 
-var info = require('./info');
+const info = require('./info');
 
-var mySqlRequester = mySqlRequesterFactory({
+
+let mySqlRequester = mySqlRequesterFactory({
   host: info.mySqlHost,
   database: info.mySqlDatabase,
   user: info.mySqlUser,
@@ -39,26 +41,37 @@ describe("MySQL requester", function() {
     });
 
     it("correct error for bad table", (testComplete) => {
-      mySqlRequester({
+      let stream = mySqlRequester({
         query: "SELECT * FROM not_a_real_datasource"
-      })
-        .then(() => {
-          throw new Error('DID_NOT_ERROR');
-        })
-        .catch((err) => {
-          expect(err.message).to.contain("ER_NO_SUCH_TABLE");
-          testComplete();
-        })
-        .done();
+      });
+
+      stream.on('error', (err) => {
+        expect(err.message).to.contain("ER_NO_SUCH_TABLE");
+        testComplete();
+      });
     });
+
+    it("correct error ER_PARSE_ERROR", (testComplete) => {
+      let stream = mySqlRequester({
+        query: 'SELECT `channel` AS "Channel", sum(`added` AS "TotalAdded" FROM `wikipedia` WHERE `cityName` = "Tokyo" GROUP BY `channel`;'
+      });
+
+      stream.on('error', (err) => {
+        expect(err.message).to.contain("ER_PARSE_ERROR");
+        testComplete();
+      });
+    });
+
   });
 
 
   describe("basic working", function() {
-    it("runs a DESCRIBE", (testComplete) => {
-      mySqlRequester({
+    it("runs a DESCRIBE", () => {
+      let stream = mySqlRequester({
         query: "DESCRIBE wikipedia;"
-      })
+      });
+
+      return toArray(stream)
         .then((res) => {
           expect(res.map(r => {
             return r.Field + ' ~ ' + r.Type;
@@ -92,16 +105,16 @@ describe("MySQL requester", function() {
             "max_delta ~ int(11)",
             "deltaByTen ~ double"
           ]);
-          testComplete();
-        })
-        .done();
+        });
     });
 
 
-    it("runs a SELECT / GROUP BY", (testComplete) => {
-      mySqlRequester({
+    it("runs a SELECT / GROUP BY", () => {
+      let stream = mySqlRequester({
         query: 'SELECT `channel` AS "Channel", sum(`added`) AS "TotalAdded", sum(`deleted`) AS "TotalDeleted" FROM `wikipedia` WHERE `cityName` = "Tokyo" GROUP BY `channel`;'
-      })
+      });
+
+      return toArray(stream)
         .then((res) => {
           expect(res).to.deep.equal([
             {
@@ -140,24 +153,22 @@ describe("MySQL requester", function() {
               "TotalDeleted": 21
             }
           ]);
-          testComplete();
-        })
-        .done();
+        });
     });
 
-    it("works correctly with time", (testComplete) => {
-      mySqlRequester({
+    it("works correctly with time", () => {
+      let stream = mySqlRequester({
         query: 'SELECT MAX(`time`) AS "MaxTime" FROM `wikipedia` GROUP BY ""'
-      })
+      });
+
+      return toArray(stream)
         .then((res) => {
           expect(res).to.deep.equal([
             {
               "MaxTime": new Date('2015-09-12T23:59:00.000Z')
             }
           ]);
-          testComplete();
-        })
-        .done();
+        });
     })
   });
 });
