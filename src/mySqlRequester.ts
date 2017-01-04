@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import * as mysql from "mysql";
+import * as mysql from 'mysql';
 import { PlywoodRequester, PlywoodLocator, basicLocator } from 'plywood-base-api';
 import { Readable } from 'stream';
 
