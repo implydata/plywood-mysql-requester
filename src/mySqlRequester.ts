@@ -17,7 +17,7 @@
 
 import * as mysql from 'mysql';
 import { PlywoodRequester, PlywoodLocator, basicLocator } from 'plywood-base-api';
-import { Readable } from 'stream';
+import { Readable } from 'readable-stream';
 
 export interface MySqlRequesterParameters {
   locator?: PlywoodLocator;
