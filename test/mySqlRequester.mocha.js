@@ -76,7 +76,7 @@ describe("MySQL requester", function() {
           expect(res.map(r => {
             return r.Field + ' ~ ' + r.Type;
           })).to.deep.equal([
-            "time ~ datetime",
+            "__time ~ datetime",
             "sometimeLater ~ timestamp",
             "channel ~ varchar(255)",
             "cityName ~ varchar(255)",
@@ -158,7 +158,7 @@ describe("MySQL requester", function() {
 
     it("works correctly with time", () => {
       let stream = mySqlRequester({
-        query: 'SELECT MAX(`time`) AS "MaxTime" FROM `wikipedia` GROUP BY ""'
+        query: 'SELECT MAX(`__time`) AS "MaxTime" FROM `wikipedia` GROUP BY ""'
       });
 
       return toArray(stream)
