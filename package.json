@@ -1,6 +1,6 @@
 {
   "name": "plywood-mysql-requester",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "MySQL requester for Plywood (within node)",
   "keywords": [
     "mysql",
